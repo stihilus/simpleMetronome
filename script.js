@@ -31,6 +31,34 @@ class Metronome {
         this.tapBtn.addEventListener('click', () => this.handleTap());
         document.getElementById('decrease-beats').addEventListener('click', () => this.adjustBeats(-1));
         document.getElementById('increase-beats').addEventListener('click', () => this.adjustBeats(1));
+        
+        // Keyboard event listeners
+        document.addEventListener('keydown', (e) => this.handleKeyboard(e));
+    }
+    
+    handleKeyboard(e) {
+        // Check if user is typing in an input field
+        if (e.target.tagName === 'INPUT' && e.target.type !== 'range') {
+            return;
+        }
+        
+        // SPACE to start/stop
+        if (e.code === 'Space') {
+            e.preventDefault();
+            this.togglePlay();
+        }
+        
+        // LEFT arrow to decrease tempo by 5
+        if (e.code === 'ArrowLeft') {
+            e.preventDefault();
+            this.adjustTempo(-5);
+        }
+        
+        // RIGHT arrow to increase tempo by 5
+        if (e.code === 'ArrowRight') {
+            e.preventDefault();
+            this.adjustTempo(5);
+        }
     }
 
     updateBeatCircles() {
